@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -33,7 +32,6 @@ func main() {
 	}
 
 	for _, file := range os.Args[1:] {
-		fmt.Printf("Reading file:%s\n", file)
 		rez, err := csvoperations.ReadCSV(file)
 		if err != nil {
 			log.Fatal("error encountered", err)

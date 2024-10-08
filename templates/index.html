@@ -8,15 +8,15 @@
 </head>
 <body>
     <h1>{{ .title }}</h1>
-    <h1>Run Task 1(please upload the csvfile)</h1>
+    <h1>Run Extractor(please upload the csv file)</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
         <input type="file" name="csvfile" accept=".csv">
-        <button type="submit">Task1</button>
+        <button type="submit">Extractor</button>
     </form>
 
-    <h1>Run Task 2</h1>
-    <form action="/run-task2" method="get">
-        <button type="submit">Task2</button>
+    <h1>Run Predictor</h1>
+    <form action="/run-predictor" method="get">
+        <button type="submit">Predictor</button>
     </form>
 </body>
 </html>

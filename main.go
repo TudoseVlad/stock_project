@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func handleTask1(r *gin.Engine) {
+func handleExtractor(r *gin.Engine) {
 	savelocation := common.Location + "/data"
 	r.POST("/upload", func(c *gin.Context) {
 		file, err := c.FormFile("csvfile")
@@ -26,15 +26,15 @@ func handleTask1(r *gin.Engine) {
 			return
 		}
 		fileP := "data/" + file.Filename
-		cmd := exec.Command("go", "run", "src/t1/task1.go", fileP)
+		cmd := exec.Command("go", "run", "src/extractor/extractor.go", fileP)
 		output, err := cmd.CombinedOutput()
 		if err != nil {
-			c.String(http.StatusInternalServerError, "Error running task1: %v :%s", err, fileP)
+			c.String(http.StatusInternalServerError, "Error running Extractor: %v :%s", err, fileP)
 			return
 		}
 
 		c.HTML(http.StatusOK, "results.html", gin.H{
-			"title":  "Task1 Results:",
+			"title":  "Extractor Results:",
 			"output": string(output),
 		})
 	})
@@ -45,16 +45,16 @@ func handleTask1(r *gin.Engine) {
 	}
 }
 
-func handleTask2(r *gin.Engine) {
-	r.GET("/run-task2", func(c *gin.Context) {
-		cmd := exec.Command("go", "run", "src/t2/task2.go")
+func handlePredictor(r *gin.Engine) {
+	r.GET("/run-predictor", func(c *gin.Context) {
+		cmd := exec.Command("go", "run", "src/predictor/predictor.go")
 		output, err := cmd.CombinedOutput()
 		if err != nil {
-			c.String(http.StatusInternalServerError, "Error running task2 : %v", err)
+			c.String(http.StatusInternalServerError, "Error running Predictor : %v", err)
 			return
 		}
 		c.HTML(http.StatusOK, "results.html", gin.H{
-			"title":  "Task2 Results:",
+			"title":  "Predictor Results:",
 			"output": string(output),
 		})
 	})
@@ -70,8 +70,8 @@ func main() {
 		})
 	})
 
-	handleTask1(r)
-	handleTask2(r)
+	handleExtractor(r)
+	handlePredictor(r)
 
 	r.Run(":8080")
 }
