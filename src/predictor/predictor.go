@@ -21,7 +21,7 @@ func findmax(data []common.Info) int {
 
 func find2ndmax(data []common.Info) (string, float64) {
 	index := findmax(data)
-	max := data[0].Price - 1
+	max := -1.0
 	var name string
 	for _, val := range data {
 		if max < val.Price && val.Price != data[index].Price {
